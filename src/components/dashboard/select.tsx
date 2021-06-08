@@ -5,10 +5,12 @@ import {useAppDispatch} from "../../index";
 const Select = () => {
         const dispatch = useAppDispatch()
     return (
+        <div>
+                <h3 className="px-2 mb-3">Select a coin to see information</h3>
         <select className="form-select" aria-label="Choose coin to add"
                 defaultValue='default'
                 onChange={(e:ChangeEvent<HTMLSelectElement>) => dispatch(getCoin(e.target.value))}>
-            <option value="default" disabled>Choose coin to add</option>
+            <option value="default" disabled>select coin</option>
             <option value="BTC">Bitcoin (BTC)</option>
             <option value="ETH"> Ethereum (ETH)</option>
             <option value="BNB">Binance coin (BNB)</option>
@@ -34,6 +36,7 @@ const Select = () => {
             <option value="TRX">TRON (TRX)</option>
             <option value="XMR"> Monero (XMR)</option>
         </select>
+        </div>
     )
 }
 

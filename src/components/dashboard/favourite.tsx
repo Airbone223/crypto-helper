@@ -3,10 +3,11 @@ import {useAppDispatch} from "../../index";
 import {getCoin, removeCoinFromFavourites} from "../../store/crypto-reducer";
 
 type PropTypes = {
-    coinSymbol: string
+    coinSymbol: string,
+    userDocId: string
 }
 
-const Favourites: React.FC<PropTypes> = ({coinSymbol}) => {
+const Favourites: React.FC<PropTypes> = ({coinSymbol, userDocId}) => {
     const dispatch = useAppDispatch()
     return <div className="m-2 my-flex">
         <div
@@ -14,7 +15,7 @@ const Favourites: React.FC<PropTypes> = ({coinSymbol}) => {
             onClick={() => dispatch(getCoin(coinSymbol))}
         >{coinSymbol}</div>
         <span
-            onClick={() => dispatch(removeCoinFromFavourites(coinSymbol))}
+            onClick={() => dispatch(removeCoinFromFavourites(userDocId, coinSymbol))}
             className="btn material-icons text-danger cursor-pointer">
             delete_forever
         </span>

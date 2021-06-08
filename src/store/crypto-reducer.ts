@@ -1,38 +1,64 @@
 import {createSlice} from "@reduxjs/toolkit"
 import {CoinInterface} from "../interfaces/interfaces"
-import {AppDispatch, useAppDispatch} from "../index"
+import {AppDispatch} from "../index"
 import {getCrypto} from "../api/crypto-api"
-import {useDispatch} from "react-redux";
-import {strict} from "assert";
+import {addCoinToUsersFavourites, getUserByUId, removeCoinFromUsersFavourites, UserType} from "../api/firebase-api";
+
+
+type WalletType = {
+    count: number,
+    symbol: string
+}
 
 type SliceState = {
     coin: CoinInterface | null,
     loading: boolean,
-    favouritesCoins: string[]
+    favouritesCoins: string[],
+    userId: string | null,
+    username: string | null,
+    wallet: WalletType[],
+    docId: string | null
 }
 
 const initialState: SliceState = {
     coin: null,
     loading: false,
-    favouritesCoins: ["BTC", "ETH", "ADA"]
+    favouritesCoins: [],
+    userId: null,
+    username: null,
+    wallet: [],
+    docId: null
 }
 
 const slice = createSlice({
     name: 'coin',
     initialState,
     reducers: {
-        enableLoading(state) {state.loading = true},
-        disableLoading(state) {state.loading = false},
-        setCoin(state, action) {state.coin = action.payload},
-        setCoinToFavourites(state, action) {
+        enableLoading(state) {
+            state.loading = true
+        },
+        disableLoading(state) {
+            state.loading = false
+        },
+        setCoin(state, action) {
+            state.coin = action.payload
+        },
+        addCoinToFavourites(state, action) {
             if (!state.favouritesCoins.includes(action.payload)) {
                 state.favouritesCoins.push(action.payload)
             }
         },
-       removeCoinFromFavourites(state, action) {
-           state.favouritesCoins = state.favouritesCoins.filter(i => i !== action.payload)
+        deleteCoinFromFavourites(state, action) {
+            state.favouritesCoins = state.favouritesCoins.filter(i => i !== action.payload)
+        },
+        setUserData(state, action) {
+            state.username = action.payload.username
+            state.userId = action.payload.userId
+            state.favouritesCoins = action.payload.favouritesCoins
+            state.docId = action.payload.docId
+            state.wallet = action.payload.wallet
         }
-    },
+    }
 })
 
 export const getCoin = (cryptoName: string) => {
@@ -44,6 +70,29 @@ export const getCoin = (cryptoName: string) => {
     }
 }
 
+export const addUserDataToState = (uid: string) => {
+    return async (dispatch: AppDispatch) => {
+        const user: UserType = await getUserByUId(uid)
+        dispatch(setUserData(user))
+    }
+}
+
+export const setCoinToFavourites = (docId: string, symbol: string) => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(addCoinToFavourites(symbol))
+      await addCoinToUsersFavourites(docId, symbol)
+    }
+}
+
+export const removeCoinFromFavourites = (docId: string, symbol: string) => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(deleteCoinFromFavourites(symbol))
+        await removeCoinFromUsersFavourites(docId, symbol)
+    }
+}
+
 export default slice.reducer
-export const { enableLoading, disableLoading, setCoin,
-    setCoinToFavourites, removeCoinFromFavourites } = slice.actions
+export const {
+    enableLoading, disableLoading, setCoin,
+    addCoinToFavourites, deleteCoinFromFavourites, setUserData
+} = slice.actions

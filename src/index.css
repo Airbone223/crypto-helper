@@ -24,3 +24,6 @@ code {
   align-content: center;
   width: 20%;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
