@@ -1,7 +1,7 @@
 import { firebase, FieldValue } from '../libs/firebase'
-
+import Firebase from 'firebase/app'
 export type WalletType = {
-    symbol: string,
+    symbol: string
     count: number
 }
 
@@ -15,7 +15,7 @@ export type UserType = {
 
 
 export async function createUser(email: string, password: string, username: string) {
-    const {user} = await firebase
+    const {user}: Firebase.auth.UserCredential = await firebase
         .auth()
         .createUserWithEmailAndPassword(email.trim(), password.trim())
         return await firebase.firestore().collection("users").add({
@@ -39,16 +39,16 @@ export async function getUserByUId (uid: string):Promise<UserType> {
     return response[0]
 }
 
-export async function login (email: string, password: string): Promise<any> {
+export async function login (email: string, password: string): Promise<Firebase.auth.UserCredential> {
     return firebase.auth()
         .signInWithEmailAndPassword(email.trim(), password.trim())
 }
 
-export async function signOut(): Promise<any> {
+export async function signOut(): Promise<void> {
     return await firebase.auth().signOut()
 }
 
-export async function addCoinToUsersFavourites(userDocId: string, symbol: string) {
+export async function addCoinToUsersFavourites(userDocId: string, symbol: string): Promise<void> {
     return firebase
         .firestore()
         .collection('users')
@@ -58,7 +58,7 @@ export async function addCoinToUsersFavourites(userDocId: string, symbol: string
         })
 }
 
-export async function removeCoinFromUsersFavourites(userDocId: string, symbol: string) {
+export async function removeCoinFromUsersFavourites(userDocId: string, symbol: string): Promise<void> {
     return firebase
         .firestore()
         .collection('users')
@@ -69,22 +69,22 @@ export async function removeCoinFromUsersFavourites(userDocId: string, symbol: s
 }
 
 
-export async function createCryptoActive(userDocId: string, cryptoActive: WalletType) {
+export async function createCryptoActive(userDocId: string, cryptoActive: WalletType): Promise<void> {
     return firebase
         .firestore()
         .collection('users')
         .doc(userDocId)
         .update({
-            favouritesCoins: FieldValue.arrayUnion(cryptoActive)
+            wallet: FieldValue.arrayUnion(cryptoActive)
         })
 }
 
-export async function removeCryptoActive(userDocId: string, symbol: string) {
+export async function removeCryptoActive(userDocId: string, cryptoActive: WalletType): Promise<void> {
     return firebase
         .firestore()
         .collection('users')
         .doc(userDocId)
         .update({
-            favouritesCoins: FieldValue.arrayRemove(symbol)
+            wallet: FieldValue.arrayRemove(cryptoActive)
         })
 }

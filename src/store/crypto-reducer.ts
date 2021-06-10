@@ -2,13 +2,15 @@ import {createSlice} from "@reduxjs/toolkit"
 import {CoinInterface} from "../interfaces/interfaces"
 import {AppDispatch} from "../index"
 import {getCrypto} from "../api/crypto-api"
-import {addCoinToUsersFavourites, getUserByUId, removeCoinFromUsersFavourites, UserType} from "../api/firebase-api";
+import {
+    addCoinToUsersFavourites,
+    createCryptoActive,
+    getUserByUId,
+    removeCoinFromUsersFavourites, removeCryptoActive,
+    UserType, WalletType
+} from "../api/firebase-api"
 
 
-type WalletType = {
-    count: number,
-    symbol: string
-}
 
 type SliceState = {
     coin: CoinInterface | null,
@@ -51,14 +53,19 @@ const slice = createSlice({
         deleteCoinFromFavourites(state, action) {
             state.favouritesCoins = state.favouritesCoins.filter(i => i !== action.payload)
         },
+        createNewActive(state, action) {
+            state.wallet.push(action.payload)
+        },
         setUserData(state, action) {
             state.username = action.payload.username
             state.userId = action.payload.userId
             state.favouritesCoins = action.payload.favouritesCoins
             state.docId = action.payload.docId
             state.wallet = action.payload.wallet
-        }
-    }
+        },
+        removeActive(state, action) {
+            state.wallet = state.wallet.filter(i => i.symbol !== action.payload)
+    }}
 })
 
 export const getCoin = (cryptoName: string) => {
@@ -91,8 +98,22 @@ export const removeCoinFromFavourites = (docId: string, symbol: string) => {
     }
 }
 
+export const createNewCryptoActive = (docId: string, cryptoActive: WalletType) => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(createNewActive(cryptoActive))
+        await createCryptoActive(docId, cryptoActive)
+    }
+}
+
+export const removeActiveFromWallet = (docId: string, cryptoActive: WalletType) => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(removeActive(cryptoActive.symbol))
+        await removeCryptoActive(docId, cryptoActive)
+    }
+}
+
 export default slice.reducer
 export const {
-    enableLoading, disableLoading, setCoin,
-    addCoinToFavourites, deleteCoinFromFavourites, setUserData
+    enableLoading, disableLoading, setCoin, createNewActive,
+    addCoinToFavourites, deleteCoinFromFavourites, setUserData, removeActive
 } = slice.actions

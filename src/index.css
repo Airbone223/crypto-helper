@@ -18,7 +18,6 @@ code {
 
 .my-flex {
   background-color: #fff;
-  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -26,4 +25,22 @@ code {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+
+.my-flex-column {
+  background-color: #fff;
+  width: 46%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.my-flex-crypto-active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.border-radius {
+  border-radius: 5px;
 }

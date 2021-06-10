@@ -3,15 +3,16 @@ import CoinCard from "../components/dashboard/coin-card"
 import {useSelector} from "react-redux"
 import {RootState} from "../store/rootReducer"
 import Loading from "../components/loading"
-import Select from "../components/dashboard/select"
 import BarChart from "../components/charts/bar-charts"
 import Favourites from "../components/dashboard/favourite"
+import Select from "../components/select"
 
 const Dashboard: React.FC = () => {
     const coin = useSelector((state: RootState) => state.coin.coin)
     const loading = useSelector((state: RootState) => state.coin.loading)
     const favouritesCoins = useSelector((state: RootState) => state.coin.favouritesCoins)
     const userDocId = useSelector((state: RootState) => state.coin.docId)
+    const selectTitle = 'Select a coin to see information'
     useEffect(() => {
         document.title = 'Your crypto'
     }, [])
@@ -19,7 +20,7 @@ const Dashboard: React.FC = () => {
             <div className="container my-3">
                     <div className="row mb-3">
                         <div className="col-sm-6">
-                        <Select />
+                        <Select selectTitle={selectTitle} />
                         {  coin && userDocId && <CoinCard coin={coin} userDocId={userDocId}/>}
                         </div>
                         <div className="col-sm-6">

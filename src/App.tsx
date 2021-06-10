@@ -17,6 +17,7 @@ const Wallet = lazy(() => import ('./pages/wallet'))
 const Dashboard = lazy(() => import ('./pages/dashboard'))
 const NotFound = lazy(() => import ('./pages/not-found'))
 
+
 const App: React.FC = () => {
     const {user} = useAuthListener()
     const dispatch = useAppDispatch()
