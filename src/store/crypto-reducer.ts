@@ -9,6 +9,7 @@ import {
     removeCoinFromUsersFavourites, removeCryptoActive,
     UserType, WalletType
 } from "../api/firebase-api"
+import {DataForDiagram} from "../pages/wallet";
 
 
 

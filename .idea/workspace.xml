@@ -12,18 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4024f9cc-b154-4def-af8e-07d6250412f5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/firebase-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/firebase-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/select.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/wallet/add-crypto-active.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/wallet/add-crypto-active.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/wallet/crypto-actives.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/wallet/crypto-active.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/wallet/wallet-header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/wallet/wallet-header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/use-auth-listener.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-auth-listener.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/firebase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/not-found.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/wallet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/wallet.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/crypto-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/crypto-reducer.ts" afterDir="false" />
     </list>
@@ -45,7 +33,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.last.introduce.type" value="CONST" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
     <property name="ts.external.directory.path" value="C:\Local Disk\projects\coin-market-cup-project\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -68,7 +56,7 @@
       <workItem from="1623051535339" duration="31426000" />
       <workItem from="1623159701058" duration="438000" />
       <workItem from="1623160529696" duration="13133000" />
-      <workItem from="1623319248594" duration="23986000" />
+      <workItem from="1623319248594" duration="25459000" />
     </task>
     <servers />
   </component>
