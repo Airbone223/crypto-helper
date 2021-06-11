@@ -9,8 +9,6 @@ import {
     removeCoinFromUsersFavourites, removeCryptoActive,
     UserType, WalletType
 } from "../api/firebase-api"
-import {DataForDiagram} from "../pages/wallet";
-
 
 
 type SliceState = {
@@ -20,8 +18,8 @@ type SliceState = {
     userId: string | null,
     username: string | null,
     wallet: WalletType[],
-    docId: string | null
-}
+    docId: string | null,
+   }
 
 const initialState: SliceState = {
     coin: null,
@@ -81,7 +79,7 @@ export const getCoin = (cryptoName: string) => {
 export const addUserDataToState = (uid: string) => {
     return async (dispatch: AppDispatch) => {
         const user: UserType = await getUserByUId(uid)
-        dispatch(setUserData(user))
+                dispatch(setUserData(user))
     }
 }
 

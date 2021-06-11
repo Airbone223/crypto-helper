@@ -7,6 +7,9 @@ import {WalletType} from "../api/firebase-api"
 import {CoinInterface} from "../interfaces/interfaces"
 import {getCrypto} from "../api/crypto-api"
 import Diagram from "../components/charts/diagram"
+import { useHistory } from "react-router-dom"
+import Loading from "../components/loading";
+
 
 export type DataForDiagram = {
     symbol: string
@@ -16,26 +19,38 @@ export type DataForDiagram = {
 const Wallet: React.FC = () => {
     const wallet: WalletType[] = useSelector((state: RootState) => state.coin.wallet)
     const [data, setData] = useState<DataForDiagram[] | null>(null)
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
-    useEffect(() => {
-        document.title = 'Your crypto | Wallet'
-        const getData = () => {
-            const walletDataWithPrice: DataForDiagram[] = []
-            wallet.forEach( async(item: WalletType) => {
+        useEffect(() => {
+        const getData = async () => {
+            let walletDataWithPrice: DataForDiagram[] = []
+           await wallet.forEach( async(item: WalletType) => {
                 const {price}: CoinInterface = await getCrypto(item.symbol)
-                const data: DataForDiagram = {symbol: item.symbol, price: price*item.count}
-                walletDataWithPrice.push(data)
+                walletDataWithPrice.push({symbol: item.symbol, price: price*item.count})
             })
             setData(walletDataWithPrice)
         }
+    if (wallet.length) {
         getData()
-    }, [wallet])
+        setLoading(true)
+        const interval = setInterval(()=>{
+            history.push('/wallet')
+            setLoading(false)
+            clearInterval(interval)
+        }, 1200)
+    }
+    }, [wallet, history])
+    useEffect(()=>{
+        document.title = 'Your crypto | Wallet'
+    }, [])
 
     return <div className="container mt-3">
         <div className="row mb-3">
             <div className="col-sm-7">
                 <div className="w-100 mr-2 bg-white">
-                    { data?.length ? <Diagram data={data}/> : null }
+                    { loading ? <Loading /> :
+                        (data?.length ? <Diagram data={data}/> : null)}
                 </div>
             </div>
             <div className="col-sm-5">

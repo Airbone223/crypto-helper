@@ -35,7 +35,7 @@ const CryptoActive: React.FC<PropTypes> = ({cryptoActive}) => {
     </div>
         <div className="p-3">
         <div> coin count: <strong>{cryptoActive.count}</strong></div>
-        {coin && <div>current price: <strong>{(coin.price * cryptoActive.count).toFixed(2)} $</strong></div>}
+        {coin && <div>current price: <strong>{(coin.price * cryptoActive.count).toFixed(1)}$</strong></div>}
         </div>
     </div>
 }
